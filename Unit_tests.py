@@ -1,6 +1,6 @@
-import pytest
 import string
 import re
+import unicodedata
 from collections import Counter
 
 def is_palindrome(text: str) -> bool:
@@ -17,10 +17,14 @@ def fibonacci(n: int) -> int:
     for i in range(2, n + 1):
         a, b = b, a + b
     return b
+
+
 def count_vowels(text: str) -> int:
-    cleaned_text = ''.lower()
+    normalized = unicodedata.normalize('NFD', text)
+    cleaned = ''.join(ch for ch in normalized if unicodedata.category(ch) != 'Mn')
+    cleaned = cleaned.lower()
     vowels = set("aeiouy")
-    return sum(1 for ch in cleaned_text if ch in vowels)
+    return sum(1 for ch in cleaned if ch in vowels)
 
 def calculate_discount(price: float, discount: float) -> float:
     if discount > 1:
@@ -42,7 +46,6 @@ def word_frequencies(text: str) -> dict:
     text = re.sub(r"[^a-z0-9ąćęłńóśżź]+", " ", text)
     words = text.split()
     return dict(Counter(words))
-
 def is_prime(n: int) -> bool:
     if n < 2:
         return False
