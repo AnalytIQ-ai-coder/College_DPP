@@ -74,7 +74,6 @@ def load_movies_from_file_links(filepath: str = "links.csv"):
     return links
 
 def load_movies_from_file_tags(filepath: str = "tags.csv"):
-    print("ŁADUJĘ TAGI...")
     tags = []
     with open(filepath, newline="", encoding="utf-8") as csvfile:
         reader = csv.DictReader(csvfile, delimiter=",")
@@ -87,7 +86,6 @@ def load_movies_from_file_tags(filepath: str = "tags.csv"):
             )
             tags.append(tag.__dict__)
     return tags
-print("ŁADUJĘ TEN MAIN:", __file__)
 @app.get("/")
 def read_root():
     return {"hello": "world"}
@@ -96,9 +94,11 @@ def get_movies():
     return load_movies_from_file_movies()
 @app.get("/ratings")
 def get_ratings():
+    print('d')
     return load_movies_from_file_ratings()
 @app.get("/links")
 def get_links():
+    print("f")
     return load_movies_from_file_links()
 @app.get("/tags")
 def get_tags():
