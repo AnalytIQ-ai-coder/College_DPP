@@ -17,9 +17,7 @@ def init_db():
         conn.commit()
 
 def fetch_pending_job():
-    """
-    Pobiera jedno zadanie o statusie 'pending' i atomowo oznacza je jako 'in_progress'.
-    """
+
     conn = sqlite3.connect(DB_FILE)
     conn.isolation_level = "EXCLUSIVE"
 
